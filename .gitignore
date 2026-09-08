@@ -16,6 +16,11 @@ dist/
 build/
 *.egg-info/
 
+# Python tooling
+.pyright/
+.mypy_cache/
+.ruff_cache/
+
 
 # ============================================================
 # Environment & Secrets

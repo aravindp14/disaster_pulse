@@ -36,6 +36,6 @@ def upload_to_s3(
         s3_key
     )
 
-    s3_uri = f"s3//{bucket}//{s3_key}"
+    s3_uri = f"s3//{bucket}/{s3_key}"
 
     return s3_uri
