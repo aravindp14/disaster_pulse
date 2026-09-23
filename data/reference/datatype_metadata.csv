@@ -1,0 +1,137 @@
+valid_from,valid_to,data_type_description,data_coverage,data_type
+1994-03-19 00:00:00+00:00,1996-05-28 00:00:00+00:00,Average cloudiness midnight to midnight from 30-second ceilometer data,1.0,ACMC
+1965-01-01 00:00:00+00:00,2005-12-31 00:00:00+00:00,Average cloudiness midnight to midnight from manual observations,1.0,ACMH
+1994-02-01 00:00:00+00:00,1996-05-28 00:00:00+00:00,Average cloudiness sunrise to sunset from 30-second ceilometer data,1.0,ACSC
+1965-01-01 00:00:00+00:00,2005-12-31 00:00:00+00:00,Average cloudiness sunrise to sunset from manual observations,1.0,ACSH
+1982-01-01 00:00:00+00:00,2026-09-19 00:00:00+00:00,Average wind speed,1.0,AWND
+1934-02-03 00:00:00+00:00,2012-07-23 00:00:00+00:00,Number of days included in the multiday evaporation total (MDEV),1.0,DAEV
+1832-05-11 00:00:00+00:00,2026-09-20 00:00:00+00:00,Number of days included in the multiday precipitation total (MDPR),1.0,DAPR
+1844-02-24 00:00:00+00:00,2026-02-23 00:00:00+00:00,Number of days included in the multiday snow fall total (MDSF) ,1.0,DASF
+1863-05-04 00:00:00+00:00,2026-09-11 00:00:00+00:00,Number of days included in the multiday minimum temperature (MDTN),1.0,DATN
+1863-05-04 00:00:00+00:00,2026-09-10 00:00:00+00:00,Number of days included in the multiday maximum temperature (MDTX),1.0,DATX
+1935-09-23 00:00:00+00:00,2010-06-21 00:00:00+00:00,Number of days included in the multiday wind movement (MDWM),1.0,DAWM
+1832-05-11 00:00:00+00:00,2026-09-09 00:00:00+00:00,Number of days with non-zero precipitation included in multiday precipitation total (MDPR),1.0,DWPR
+1893-01-09 00:00:00+00:00,2026-08-31 00:00:00+00:00,Evaporation of water from evaporation pan,1.0,EVAP
+1982-01-01 00:00:00+00:00,2013-03-31 00:00:00+00:00,Time of fastest mile or fastest 1-minute wind,1.0,FMTM
+1946-10-29 00:00:00+00:00,1964-12-31 00:00:00+00:00,Base of frozen ground layer,1.0,FRGB
+1946-10-29 00:00:00+00:00,1964-12-31 00:00:00+00:00,Top of frozen ground layer,1.0,FRGT
+1948-01-01 00:00:00+00:00,1964-12-31 00:00:00+00:00,Thickness of frozen ground layer,1.0,FRTH
+1913-07-25 00:00:00+00:00,1964-12-31 00:00:00+00:00,Difference between river and gauge height,1.0,GAHT
+1934-02-03 00:00:00+00:00,2010-08-16 00:00:00+00:00,Multiday evaporation total (use with DAEV),1.0,MDEV
+1832-05-11 00:00:00+00:00,2026-09-20 00:00:00+00:00,"Multiday precipitation total (use with DAPR and DWPR, if available)",1.0,MDPR
+1844-02-24 00:00:00+00:00,2026-02-23 00:00:00+00:00,Multiday snowfall total ,1.0,MDSF
+1863-05-04 00:00:00+00:00,2026-09-11 00:00:00+00:00,Multiday minimum temperature (use with DATN),1.0,MDTN
+1863-05-04 00:00:00+00:00,2026-09-10 00:00:00+00:00,Multiday maximum temperature (use with DATX),1.0,MDTX
+1935-09-23 00:00:00+00:00,2010-06-21 00:00:00+00:00,Multiday wind movement,1.0,MDWM
+1950-11-28 00:00:00+00:00,2026-08-31 00:00:00+00:00,Daily minimum temperature of water in an evaporation pan,1.0,MNPN
+1921-12-09 00:00:00+00:00,2026-08-31 00:00:00+00:00,Daily maximum temperature of water in an evaporation pan,1.0,MXPN
+1948-01-01 00:00:00+00:00,2025-08-26 00:00:00+00:00,Peak gust time,1.0,PGTM
+1781-01-01 00:00:00+00:00,2026-09-20 00:00:00+00:00,Precipitation,1.0,PRCP
+1965-01-01 00:00:00+00:00,2025-08-17 00:00:00+00:00,Daily percent of possible sunshine for the period,1.0,PSUN
+1982-01-01 00:00:00+00:00,2009-08-31 00:00:00+00:00,Minimum soil temperature with unknown cover at 5 cm depth,1.0,SN01
+1982-01-01 00:00:00+00:00,2012-10-31 00:00:00+00:00,Minimum soil temperature with unknown cover at 10 cm depth,1.0,SN02
+1982-01-01 00:00:00+00:00,2010-01-10 00:00:00+00:00,Minimum soil temperature with unknown cover at 20 cm depth,1.0,SN03
+1982-01-01 00:00:00+00:00,2012-02-29 00:00:00+00:00,Minimum soil temperature with grass cover at 5 cm depth,0.9677,SN11
+1982-01-01 00:00:00+00:00,2012-09-30 00:00:00+00:00,Minimum soil temperature with grass cover at 10 cm depth,1.0,SN12
+1982-01-01 00:00:00+00:00,2012-02-29 00:00:00+00:00,Minimum soil temperature with grass cover at 20 cm depth,1.0,SN13
+2010-01-01 00:00:00+00:00,2011-01-31 00:00:00+00:00,Minimum soil temperature with grass cover at 50 cm depth,1.0,SN14
+1983-07-01 00:00:00+00:00,2010-12-31 00:00:00+00:00,Minimum soil temperature with fallow cover at 5 cm depth,0.9176,SN21
+1983-04-01 00:00:00+00:00,2010-12-31 00:00:00+00:00,Minimum soil temperature with fallow cover at 10 cm depth,1.0,SN22
+1983-04-01 00:00:00+00:00,2010-12-31 00:00:00+00:00,Minimum soil temperature with fallow cover at 20 cm depth,0.8757,SN23
+1982-01-01 00:00:00+00:00,2026-08-28 00:00:00+00:00,Minimum soil temperature with bare ground cover at 5 cm depth,1.0,SN31
+1982-01-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Minimum soil temperature with bare ground cover at 10 cm depth,1.0,SN32
+1982-01-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Minimum soil temperature with bare ground cover at 20 cm depth,1.0,SN33
+2005-01-01 00:00:00+00:00,2012-07-31 00:00:00+00:00,Minimum soil temperature with bare ground cover at 50 cm depth,1.0,SN34
+2005-01-01 00:00:00+00:00,2026-07-31 00:00:00+00:00,Minimum soil temperature with bare ground cover at 100 cm depth,1.0,SN35
+2006-03-01 00:00:00+00:00,2026-07-31 00:00:00+00:00,Minimum soil temperature with bare ground cover at 150 cm depth,1.0,SN36
+1982-01-01 00:00:00+00:00,2026-07-31 00:00:00+00:00,Minimum soil temperature with sod cover at 5 cm depth,1.0,SN51
+1982-01-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Minimum soil temperature with sod cover at 10 cm depth,1.0,SN52
+1982-01-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Minimum soil temperature with sod cover at 20 cm depth,1.0,SN53
+2002-03-01 00:00:00+00:00,2012-06-30 00:00:00+00:00,Minimum soil temperature with sod cover at 50 cm depth,1.0,SN54
+2002-03-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Minimum soil temperature with sod cover at 100 cm depth,1.0,SN55
+2012-09-27 00:00:00+00:00,2026-07-31 00:00:00+00:00,Minimum soil temperature with sod cover at 150 cm depth,1.0,SN56
+2015-03-01 00:00:00+00:00,2015-03-31 00:00:00+00:00,Minimum soil temperature with sod cover at 180 cm depth,1.0,SN57
+1982-01-01 00:00:00+00:00,1993-01-31 00:00:00+00:00,Minimum soil temperature with straw multch cover at 5 cm depth,0.9791,SN61
+1982-06-01 00:00:00+00:00,1990-10-31 00:00:00+00:00,Minimum soil temperature with grass muck cover at 10 cm depth,1.0,SN72
+1982-06-01 00:00:00+00:00,1990-10-31 00:00:00+00:00,Minimum soil temperature with bare muck cover at 5 cm depth,1.0,SN81
+1982-06-01 00:00:00+00:00,1990-10-31 00:00:00+00:00,Minimum soil temperature with bare muck cover at 10 cm depth,0.9997,SN82
+1982-06-01 00:00:00+00:00,1990-10-31 00:00:00+00:00,Minimum soil temperature with bare muck cover at 20 cm depth,0.9997,SN83
+1840-05-01 00:00:00+00:00,2026-09-20 00:00:00+00:00,Snowfall,1.0,SNOW
+1850-04-06 00:00:00+00:00,2026-09-20 00:00:00+00:00,Snow depth,1.0,SNWD
+1982-01-01 00:00:00+00:00,2009-08-31 00:00:00+00:00,Maximum soil temperature with unknown cover at 5 cm depth,1.0,SX01
+1982-01-01 00:00:00+00:00,2012-10-31 00:00:00+00:00,Maximum soil temperature with unknown cover at 10 cm depth,1.0,SX02
+1982-01-01 00:00:00+00:00,2010-01-10 00:00:00+00:00,Maximum soil temperature with unknown cover at 20 cm depth,1.0,SX03
+1982-01-01 00:00:00+00:00,2012-02-29 00:00:00+00:00,Maximum soil temperature with grass cover at 5 cm depth,0.9677,SX11
+1982-01-01 00:00:00+00:00,2012-09-30 00:00:00+00:00,Maximum soil temperature with grass cover at 10 cm depth,1.0,SX12
+1982-01-01 00:00:00+00:00,2012-02-29 00:00:00+00:00,Maximum soil temperature with grass cover at 20 cm depth,1.0,SX13
+2009-03-01 00:00:00+00:00,2011-02-28 00:00:00+00:00,Maximum soil temperature with grass cover at 50 cm depth,1.0,SX14
+2011-08-01 00:00:00+00:00,2012-06-30 00:00:00+00:00,Maximum soil temperature with grass cover at 100 cm depth,1.0,SX15
+2011-08-01 00:00:00+00:00,2012-06-30 00:00:00+00:00,Maximum soil temperature with grass cover at 180 cm depth,1.0,SX17
+1983-07-01 00:00:00+00:00,2010-12-31 00:00:00+00:00,Maximum soil temperature with fallow cover at 5 cm depth,1.0,SX21
+1983-04-01 00:00:00+00:00,2010-12-31 00:00:00+00:00,Maximum soil temperature with fallow cover at 10 cm depth,1.0,SX22
+1983-04-01 00:00:00+00:00,2010-12-31 00:00:00+00:00,Maximum soil temperature with fallow cover at 20 cm depth,0.8761,SX23
+1982-01-01 00:00:00+00:00,2026-08-28 00:00:00+00:00,Maximum soil temperature with bare ground cover at 5 cm depth,1.0,SX31
+1982-01-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Maximum soil temperature with bare ground cover at 10 cm depth,1.0,SX32
+1982-01-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Maximum soil temperature with bare ground cover at 20 cm depth,1.0,SX33
+2005-01-01 00:00:00+00:00,2024-08-31 00:00:00+00:00,Maximum soil temperature with bare ground cover at 50 cm depth,1.0,SX34
+2005-01-01 00:00:00+00:00,2026-07-31 00:00:00+00:00,Maximum soil temperature with bare ground cover at 100 cm depth,0.9923,SX35
+2011-01-01 00:00:00+00:00,2026-07-31 00:00:00+00:00,Maximum soil temperature with bare ground cover at 150 cm depth,1.0,SX36
+1982-01-01 00:00:00+00:00,2026-07-31 00:00:00+00:00,Maximum soil temperature with sod cover at 5 cm depth,1.0,SX51
+1982-01-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Maximum soil temperature with sod cover at 10 cm depth,1.0,SX52
+1982-01-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Maximum soil temperature with sod cover at 20 cm depth,1.0,SX53
+2002-03-01 00:00:00+00:00,2012-06-30 00:00:00+00:00,Maximum soil temperature with sod cover at 50 cm depth,1.0,SX54
+2002-03-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Maximum soil temperature with sod cover at 100 cm depth,1.0,SX55
+2012-09-27 00:00:00+00:00,2026-07-31 00:00:00+00:00,Maximum soil temperature with sod cover at 150 cm depth,1.0,SX56
+2015-03-01 00:00:00+00:00,2019-05-31 00:00:00+00:00,Maximum soil temperature with sod cover at 180 cm depth,0.0399,SX57
+1982-01-01 00:00:00+00:00,1996-11-30 00:00:00+00:00,Maximum soil temperature with straw multch cover at 5 cm depth,0.9799,SX61
+1982-06-01 00:00:00+00:00,1990-10-31 00:00:00+00:00,Maximum soil temperature with grass muck cover at 10 cm depth,1.0,SX72
+1982-06-01 00:00:00+00:00,1990-10-31 00:00:00+00:00,Maximum soil temperature with bare muck cover at 5 cm depth,1.0,SX81
+1982-06-01 00:00:00+00:00,1990-10-31 00:00:00+00:00,Maximum soil temperature with bare muck cover at 10 cm depth,1.0,SX82
+1982-06-01 00:00:00+00:00,1990-10-31 00:00:00+00:00,Maximum soil temperature with bare muck cover at 20 cm depth,1.0,SX83
+1874-10-13 00:00:00+00:00,2026-09-20 00:00:00+00:00,Average Temperature.,1.0,TAVG
+1926-03-17 00:00:00+00:00,2026-08-31 00:00:00+00:00,Thickness of ice on water,1.0,THIC
+1763-01-01 00:00:00+00:00,2026-09-20 00:00:00+00:00,Maximum temperature,1.0,TMAX
+1763-01-01 00:00:00+00:00,2026-09-20 00:00:00+00:00,Minimum temperature,1.0,TMIN
+1876-11-27 00:00:00+00:00,2026-09-20 00:00:00+00:00,Temperature at the time of observation,1.0,TOBS
+1965-01-01 00:00:00+00:00,2025-05-27 00:00:00+00:00,Total sunshine for the period,1.0,TSUN
+1965-01-01 00:00:00+00:00,1996-06-30 00:00:00+00:00,Direction of fastest 1-minute wind,1.0,WDF1
+1993-06-01 00:00:00+00:00,2026-09-19 00:00:00+00:00,Direction of fastest 2-minute wind,1.0,WDF2
+1993-06-01 00:00:00+00:00,2026-09-19 00:00:00+00:00,Direction of fastest 5-second wind,1.0,WDF5
+1891-10-06 00:00:00+00:00,2026-08-31 00:00:00+00:00,Direction of peak wind gust,1.0,WDFG
+1965-01-01 00:00:00+00:00,1981-02-03 00:00:00+00:00,Direction of highest instantaneous wind,1.0,WDFI
+1965-01-01 00:00:00+00:00,1996-06-30 00:00:00+00:00,Fastest mile wind direction,1.0,WDFM
+1859-10-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Total wind movement,1.0,WDMV
+1952-07-01 00:00:00+00:00,2026-09-20 00:00:00+00:00,Water equivalent of snow on the ground,1.0,WESD
+1998-06-01 00:00:00+00:00,2026-09-20 00:00:00+00:00,Water equivalent of snowfall,1.0,WESF
+1965-01-01 00:00:00+00:00,1996-06-30 00:00:00+00:00,Fastest 1-minute wind speed,1.0,WSF1
+1993-06-01 00:00:00+00:00,2026-09-19 00:00:00+00:00,Fastest 2-minute wind speed,1.0,WSF2
+1993-06-01 00:00:00+00:00,2026-09-19 00:00:00+00:00,Fastest 5-second wind speed,1.0,WSF5
+1948-01-01 00:00:00+00:00,2026-08-31 00:00:00+00:00,Peak gust wind speed,1.0,WSFG
+1965-01-01 00:00:00+00:00,2026-09-19 00:00:00+00:00,Highest instantaneous wind speed,1.0,WSFI
+1965-01-01 00:00:00+00:00,1996-06-30 00:00:00+00:00,Fastest mile wind speed,1.0,WSFM
+1843-12-18 00:00:00+00:00,2026-09-19 00:00:00+00:00,"Fog, ice fog, or freezing fog (may include heavy fog)",1.0,WT01
+1900-12-23 00:00:00+00:00,2026-09-19 00:00:00+00:00,Heavy fog or heaving freezing fog (not always distinguished from fog),1.0,WT02
+1844-04-24 00:00:00+00:00,2026-09-19 00:00:00+00:00,Thunder,1.0,WT03
+1843-12-07 00:00:00+00:00,2026-08-31 00:00:00+00:00,"Ice pellets, sleet, snow pellets, or small hail"" ",1.0,WT04
+1844-03-18 00:00:00+00:00,2026-09-17 00:00:00+00:00,Hail (may include small hail),1.0,WT05
+1851-12-27 00:00:00+00:00,2026-08-24 00:00:00+00:00,Glaze or rime ,1.0,WT06
+1891-12-21 00:00:00+00:00,2026-09-14 00:00:00+00:00,"Dust, volcanic ash, blowing dust, blowing sand, or blowing obstruction",1.0,WT07
+1851-04-11 00:00:00+00:00,2026-09-19 00:00:00+00:00,Smoke or haze ,1.0,WT08
+1852-02-12 00:00:00+00:00,2026-04-24 00:00:00+00:00,Blowing or drifting snow,1.0,WT09
+1886-03-20 00:00:00+00:00,2026-09-12 00:00:00+00:00,"Tornado, waterspout, or funnel cloud"" ",1.0,WT10
+1851-04-03 00:00:00+00:00,2026-08-31 00:00:00+00:00,High or damaging winds,1.0,WT11
+1985-03-07 00:00:00+00:00,2008-01-16 00:00:00+00:00,Blowing spray,1.0,WT12
+1995-08-01 00:00:00+00:00,2018-02-20 00:00:00+00:00,Mist,1.0,WT13
+1851-09-06 00:00:00+00:00,2018-06-19 00:00:00+00:00,Drizzle,1.0,WT14
+1967-12-01 00:00:00+00:00,2019-04-13 00:00:00+00:00,Freezing drizzle ,1.0,WT15
+1851-04-01 00:00:00+00:00,2019-07-30 00:00:00+00:00,"Rain (may include freezing rain, drizzle, and freezing drizzle)"" ",1.0,WT16
+1851-12-27 00:00:00+00:00,2021-01-31 00:00:00+00:00,Freezing rain ,1.0,WT17
+1851-04-13 00:00:00+00:00,2021-03-16 00:00:00+00:00,"Snow, snow pellets, snow grains, or ice crystals",1.0,WT18
+1992-11-01 00:00:00+00:00,2013-03-31 00:00:00+00:00,Unknown source of precipitation ,1.0,WT19
+1967-09-05 00:00:00+00:00,2013-03-31 00:00:00+00:00,Ground fog ,1.0,WT21
+1979-01-01 00:00:00+00:00,2017-03-26 00:00:00+00:00,Ice fog or freezing fog,1.0,WT22
+1996-07-01 00:00:00+00:00,2005-12-24 00:00:00+00:00,"Fog, ice fog, or freezing fog (may include heavy fog)",1.0,WV01
+1996-07-02 00:00:00+00:00,2005-12-31 00:00:00+00:00,Thunder,1.0,WV03
+1996-07-08 00:00:00+00:00,2005-09-09 00:00:00+00:00,"Ash, dust, sand, or other blowing obstruction",1.0,WV07
+1996-10-21 00:00:00+00:00,2002-02-04 00:00:00+00:00,Snow or ice crystals,1.0,WV18
+1996-07-01 00:00:00+00:00,2005-12-31 00:00:00+00:00,Rain or snow shower,1.0,WV20

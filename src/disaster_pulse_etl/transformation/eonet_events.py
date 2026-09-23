@@ -112,6 +112,23 @@ def transform_eonet(data: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
     events_df = pd.DataFrame(event_records)
     geometry_df = pd.DataFrame(geometry_records)
 
-    return events_df, geometry_df
+    geometry_df["geometry_date"] = pd.to_datetime(
+        geometry_df["geometry_date"],
+        errors="coerce",
+        utc=True
+    )
 
+    events_df["event_date"] = pd.to_datetime(
+        events_df["event_date"],
+        errors="coerce",
+        utc=True
+    )
+
+    events_df["closed_at"] = pd.to_datetime(
+        events_df["closed_at"],
+        errors="coerce",
+        utc=True
+    )
+
+    return events_df, geometry_df
 
