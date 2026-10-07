@@ -558,21 +558,16 @@ def run_noaa_pipeline(
 
             station_records = []
 
-            for station_id in missing_station_ids:
+            
 
-                logger.info(
-                    "Extracting NOAA station metadata: %s",
-                    station_id
-                )
+            logger.info(
+                "Extracting NOAA station metadata for refreshing station catalogue"
+            )
 
-                station_data = extract_noaa_station(
-                    station_id
-                )
-
-                station_records.append(station_data)
+            station_data = extract_noaa_stations()
 
             station_df = transform_noaa_stations(
-                {"results": station_records}
+                station_data
             )
 
             validation_result = validate_noaa_stations(

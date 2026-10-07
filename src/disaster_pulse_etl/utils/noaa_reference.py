@@ -74,7 +74,7 @@ def load_datatype_ids(
         return set()
 
     datatype_df = pd.read_csv(datatype_reference_path)
-    datatype_df.rename(columns={"id":"data_type"},inplace=True)
+    # datatype_df.rename(columns={"id":"data_type"},inplace=True)
     return get_datatype_ids(datatype_df)
 
 def save_station_ids(
@@ -136,9 +136,13 @@ def merge_station_metadata(
     new_df: pd.DataFrame,
 ) -> pd.DataFrame:
 
-    return pd.concat(
+    merged_df = pd.concat(
         [current_df, new_df],
         ignore_index=True
+    )
+
+    return (
+        merged_df.drop_duplicates(subset="station_id", keep="last").reset_index(drop=True)
     )
 
 def merge_datatype_metadata(
@@ -146,11 +150,15 @@ def merge_datatype_metadata(
     new_df: pd.DataFrame
 ) -> pd.DataFrame:
 
-    return pd.concat(
+    merged_df = pd.concat(
         [current_df,new_df],
         ignore_index=True
     )
     
+    return (
+        merged_df.drop_duplicates(subset="data_type", keep="last").reset_index(drop=True)
+    )
+
 def save_station_metadata(
         df: pd.DataFrame,
         path: Path = STATION_METADATA_PATH
