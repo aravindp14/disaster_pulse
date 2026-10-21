@@ -3,7 +3,18 @@ import os
 import requests
 from dotenv import load_dotenv
 from pathlib import Path
+from datetime import datetime, timedelta, timezone
 
+today = datetime.now(timezone.utc).date()
+
+observation_date = (today - timedelta(days=5)).isoformat()
+
+# start_date = (today - timedelta(days=10)).isoformat()
+# end_date = (today - timedelta(days=5)).isoformat()
+
+# start_date = (today - timedelta(days=3)).isoformat()
+
+# end_date = (today - timedelta(days=1)).isoformat()
 
 NOAA_URL = "https://www.ncei.noaa.gov/cdo-web/api/v2"
 
@@ -55,6 +66,7 @@ def extract_noaa(endpoint: str,
     offset = 1
 
     all_results = []
+    total_count = 0
 
     while True:
         
@@ -75,19 +87,25 @@ def extract_noaa(endpoint: str,
 
         page = response.json()
 
+        # print("Requested URL:", response.url)
+        # print("Response:", page)
+
+        if not page:
+            raise ValueError(f"NOAA returned an empty JSON response: {response.url}")
+
         results = page.get("results",[])
 
-        if not results:
-            break
-
-        all_results.extend(results)
-
         resultset = (
-            page.get("metadata",{})
-            .get("resultset", {})
-        )
+                    page.get("metadata",{})
+                    .get("resultset", {})
+                )
 
         total_count = resultset.get("count")
+
+        if not results:
+            break        
+
+        all_results.extend(results)
 
         if total_count is None:
             break
@@ -114,8 +132,8 @@ def extract_noaa_data() -> dict:
     
     params = {
         "datasetid": "GHCND",
-        "startdate": "2026-09-01",
-        "enddate": "2026-09-01",
+        "startdate": start_date,
+        "enddate": end_date,
         "units": "metric",
     }
     

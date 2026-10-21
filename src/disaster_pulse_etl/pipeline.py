@@ -12,6 +12,10 @@ from disaster_pulse_etl.extraction.usgs import extract_earthquakes
 from disaster_pulse_etl.transformation.earthquakes import transform_earthquakes
 from disaster_pulse_etl.validation.earthquake_validation import validate_earthquakes
 
+from disaster_pulse_etl.extraction.world_bank import extract_world_bank
+from disaster_pulse_etl.transformation.world_bank_population import transform_population_data
+from disaster_pulse_etl.validation.world_bank_validation import validate_world_bank
+
 
 from disaster_pulse_etl.extraction.eonet import extract_eonet
 from disaster_pulse_etl.transformation.eonet_events import transform_eonet
@@ -820,6 +824,131 @@ def bootstrap_noaa_station_reference(bucket: str) -> bool:
 
     return True
 
+def run_world_bank_pipeline(
+    bucket: str
+) -> dict[str, object] | None:
+    
+    """
+    Run the World Bank population ETL pipeline.
+
+    Parameters
+    ----------
+
+    bucket: str -> Destination S3 bucket name.
+
+    Returns
+    -------
+    dict[str, object] | None -> Dictionary containing output artifact paths
+        when successful. Returns None when validation fails.
+    """
+
+    logger.info("Starting DisasterPulse World Bank Population ETL pipeline")
+
+    try:
+
+        logger.info("Starting World Bank population data extraction")
+
+        data = extract_world_bank()
+
+        logger.info("World Bank population data Extraction completed")
+
+        logger.info("Saving the raw World Bank response")
+
+        raw_path = save_raw_json(
+            data=data,
+            source="WB_POPULATION_SOURCE",
+            dataset="WB_POPULATION_DATASET"
+        )
+
+        logger.info("Raw World Bank response saved: %s", raw_path)
+
+        logger.info("Starting World Bank population data transformation")
+
+        df = transform_population_data(data)
+
+        logger.info(
+            "World Bank population data transformation completed: %s records",
+            len(df)
+        )
+
+        logger.info("Starting World Bank population data validation.")
+
+        validation_result = validate_world_bank(df)
+
+        for warning in validation_result["warnings"]:
+            logger.warning(warning)
+        for errors in validation_result["errors"]:
+            logger.error(errors)
+        if validation_result["status"] == "FAILED":
+            logger.error(
+                "World Bank population data validation failed. "
+                "Pipeline execution stopped."
+            )
+            return None
+
+        logger.info(
+            "World Bank population data validation passed. "
+            "Continuing pipeline."
+        )
+
+        logger.info("Saving processed World Bank population data")
+
+        processed_path = save_processed_csv(
+            df=df,
+            source="WB_POPULATION_SOURCE",
+            dataset="WB_POPULATION_DATASET"
+        )
+
+        logger.info(
+            "Processed World Bank population data saved: %s",
+            processed_path
+        )
+
+        relative_processed_path = (
+            processed_path
+            .relative_to(PROCESSED_BASE_PATH.parent)
+            .as_posix()
+        )
+
+        s3_key = (
+            f"{S3_PREFIX}/{relative_processed_path}"
+        )
+
+        logger.info(
+            "Uploading processed World Bank population data to S3: "
+            "s3://%s/%s",
+            bucket,
+            s3_key
+        )
+
+        s3_uri = upload_to_s3(
+            local_file=processed_path,
+            s3_key=s3_key,
+            bucket=bucket
+        )
+
+        logger.info(
+            "Processed World Bank population data uploaded: %s",
+            s3_uri
+        )
+
+        logger.info(
+            "DisasterPulse World Bank Population ETL pipeline" 
+            "completed successfully"
+        )
+
+        return {
+            "raw_path": str(raw_path),
+            "processed_path": str(processed_path),
+            "s3_uri": s3_uri
+        }
+
+    except Exception:
+        logger.exception(
+            "DisasterPulse World Bank Population ETL pipeline failed"
+        )
+        raise
+
 
 
 
@@ -884,7 +1013,16 @@ def main() -> None:
             "NOAA pipeline completed successfully."
         )
 
+    world_bank_result = run_world_bank_pipeline(bucket=bucket)
 
+    if world_bank_result is None:
+        logger.error(
+            "World Bank pipeline completed with validation failure."
+        )
+    else:
+        logger.info(
+            "World Bank pipeline completed successfully."
+        )
 
     logger.info(
             "DisasterPulse ETL orchestration completed"
