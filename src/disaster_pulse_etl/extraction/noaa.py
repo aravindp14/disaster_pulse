@@ -132,8 +132,8 @@ def extract_noaa_data() -> dict:
     
     params = {
         "datasetid": "GHCND",
-        "startdate": start_date,
-        "enddate": end_date,
+        "startdate": observation_date,
+        "enddate": observation_date,
         "units": "metric",
     }
     
