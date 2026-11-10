@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta, timezone
 import os
 from pathlib import Path
 import pandas as pd
@@ -441,9 +441,9 @@ def run_noaa_pipeline(
 
     try:
         if observation_date is None:
-            today = datetime.now(datetime.timezone.utc).date()
+            today = datetime.now(timezone.utc).date()
             observation_date = (
-                today - datetime.timedelta(days=5)
+                today - timedelta(days=5)
             ).isoformat()
 
         logger.info(
@@ -1077,10 +1077,10 @@ def main() -> None:
 
             
     # 1. Determine today's scheduled observation date.
-    today = datetime.now(datetime.timezone.utc).date()
+    today = datetime.now(timezone.utc).date()
 
     scheduled_date = (
-        today - datetime.timedelta(days=5)
+        today - timedelta(days=5)
     ).isoformat()
 
     logger.info(
