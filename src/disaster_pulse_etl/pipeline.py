@@ -1,3 +1,4 @@
+import datetime
 import os
 from pathlib import Path
 import pandas as pd
@@ -25,7 +26,8 @@ from disaster_pulse_etl.extraction.noaa import (
     extract_noaa_data,
     extract_noaa_station,
     extract_noaa_stations,
-    extract_noaa_datatypes
+    extract_noaa_datatypes,
+    NOAANoDataError
 )
 
 from disaster_pulse_etl.transformation.noaa_observations import (
@@ -59,6 +61,12 @@ from disaster_pulse_etl.utils.noaa_reference import (
     save_datatype_ids,
     save_station_metadata,
     save_datatype_metadata,
+)
+
+from disaster_pulse_etl.utils.noaa_state import (
+    load_pending_dates,
+    add_pending_date,
+    remove_pending_date,
 )
 
 USGS_SOURCE = "USGS"
@@ -420,7 +428,8 @@ def run_eonet_pipeline(
         raise
 
 def run_noaa_pipeline(
-        bucket: str
+        bucket: str,
+        observation_date: str | None = None
 ) -> dict[str, object] | None:
     """
     Run the NOAA ETL pipeline.
@@ -431,11 +440,18 @@ def run_noaa_pipeline(
     )
 
     try:
+        if observation_date is None:
+            today = datetime.now(datetime.timezone.utc).date()
+            observation_date = (
+                today - datetime.timedelta(days=5)
+            ).isoformat()
+
         logger.info(
-            "Starting NOAA data extraction"
+            "Starting NOAA extraction for observation date: %s",
+            observation_date,
         )
 
-        data = extract_noaa_data()
+        data = extract_noaa_data(observation_date)
 
         logger.info(
             "NOAA data extraction completed"
@@ -764,9 +780,23 @@ def run_noaa_pipeline(
         )
 
         return {
+            "status": "SUCCESS",
+            "observation_date": observation_date,
             "raw_path": str(raw_path),
             "processed_path": str(processed_path),
             "s3_uri": s3_uri,
+        }
+
+    except NOAANoDataError as exc:
+        logger.warning(
+            "NOAA NO_DATA for %s: %s",
+            observation_date,
+            exc,
+        )
+
+        return {
+            "status": "NO_DATA",
+            "observation_date": observation_date,
         }
 
 
@@ -950,6 +980,51 @@ def run_world_bank_pipeline(
         raise
 
 
+def process_noaa_date(
+    bucket: str,
+    observation_date: str,
+) -> dict | None:
+    """Process one date and update its pending status."""
+
+    # Register before execution so failures remain recoverable.
+    add_pending_date(observation_date)
+
+    result = run_noaa_pipeline(
+        bucket=bucket,
+        observation_date=observation_date,
+    )
+
+    if result is None:
+        logger.error(
+            "NOAA validation failed for %s. Date remains pending.",
+            observation_date,
+        )
+        return None
+
+    if result["status"] == "NO_DATA":
+        logger.warning(
+            "NOAA %s has no data. Date remains pending.",
+            observation_date,
+        )
+        return result
+
+    if result["status"] != "SUCCESS":
+        raise ValueError(
+            f"Unexpected NOAA pipeline status: {result['status']}"
+        )
+
+    # This happens only after a successful S3 upload.
+    remove_pending_date(observation_date)
+
+    logger.info(
+        "NOAA processing completed for %s",
+        observation_date,
+    )
+
+    return result
+
+
+
 
 
 def main() -> None:
@@ -1000,18 +1075,47 @@ def main() -> None:
             "NASA EONET pipeline completed successfully."
         )
 
-    noaa_result = run_noaa_pipeline(
-    bucket=bucket
+            
+    # 1. Determine today's scheduled observation date.
+    today = datetime.now(datetime.timezone.utc).date()
+
+    scheduled_date = (
+        today - datetime.timedelta(days=5)
+    ).isoformat()
+
+    logger.info(
+        "NOAA scheduled observation date: %s",
+        scheduled_date,
     )
 
-    if noaa_result is None:
-        logger.error(
-            "NOAA pipeline completed with validation failure."
+    # 2. Process the scheduled date.
+    process_noaa_date(
+        bucket=bucket,
+        observation_date=scheduled_date,
+    )
+
+    # 3. Recheck one older pending date.
+    pending_dates = [
+        date_value
+        for date_value in load_pending_dates()
+        if date_value != scheduled_date
+    ]
+
+    if pending_dates:
+        retry_date = pending_dates[0]
+
+        logger.info(
+            "Rechecking pending NOAA date: %s",
+            retry_date,
+        )
+
+        process_noaa_date(
+            bucket=bucket,
+            observation_date=retry_date,
         )
     else:
-        logger.info(
-            "NOAA pipeline completed successfully."
-        )
+        logger.info("No additional pending NOAA dates")
+
 
     world_bank_result = run_world_bank_pipeline(bucket=bucket)
 

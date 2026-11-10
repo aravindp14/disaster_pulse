@@ -1,6 +1,8 @@
 import requests
 
 from disaster_pulse_etl.utils.raw_storage import save_raw_json
+from disaster_pulse_etl.utils.http_client import get_with_retry
+
 
 USGS_EARTHQUAKE_URL = (
     "https://earthquake.usgs.gov/earthquakes/feed/v1.0/"
@@ -22,6 +24,5 @@ def extract_earthquakes(url: str = USGS_EARTHQUAKE_URL) -> dict:
     Raw JSON response from USGS.
     """
 
-    response = requests.get(url, timeout=30)
-    response.raise_for_status()
+    response = get_with_retry(url, timeout=30)
     return response.json()

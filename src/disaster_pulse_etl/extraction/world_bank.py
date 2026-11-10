@@ -1,5 +1,7 @@
 import requests
 
+from disaster_pulse_etl.utils.http_client import get_with_retry
+
 world_bank_url = "https://api.worldbank.org/v2"
 
 def extract_world_bank(
@@ -19,7 +21,7 @@ def extract_world_bank(
     metadata = {}
 
     while page <= total_pages:
-        response = requests.get(
+        response = get_with_retry(
             url,
             params={
                 "format": "json",
@@ -29,7 +31,6 @@ def extract_world_bank(
             timeout=60
         )
 
-        response.raise_for_status()
         payload = response.json()
 
         if (not isinstance(payload,list)) or (len(payload) < 2):

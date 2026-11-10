@@ -5,9 +5,11 @@ from dotenv import load_dotenv
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
 
-today = datetime.now(timezone.utc).date()
+from disaster_pulse_etl.utils.logger import get_logger
+from disaster_pulse_etl.utils.http_client import get_with_retry
 
-observation_date = (today - timedelta(days=5)).isoformat()
+logger = get_logger()
+
 
 # start_date = (today - timedelta(days=10)).isoformat()
 # end_date = (today - timedelta(days=5)).isoformat()
@@ -20,6 +22,10 @@ NOAA_URL = "https://www.ncei.noaa.gov/cdo-web/api/v2"
 
 NOAA_ENDPOINTs = ["data","stations","datatypes"]
 
+
+class NOAANoDataError(Exception):
+    """Custom exception for NOAA API no data response."""
+    pass
 
 def extract_noaa(endpoint: str,
     params: dict | None = None,
@@ -76,22 +82,40 @@ def extract_noaa(endpoint: str,
             "offset":offset
         }
 
-        response = requests.get(
+        response = get_with_retry(
             url,
             headers=headers,
             params=request_params,
             timeout=timeout
         )
 
-        response.raise_for_status()
-
-        page = response.json()
-
         # print("Requested URL:", response.url)
         # print("Response:", page)
 
-        if not page:
-            raise ValueError(f"NOAA returned an empty JSON response: {response.url}")
+        response.raise_for_status()
+
+        logger.info(
+            "NOAA response: Status = %s, URL = %s, body = %s",
+            response.status_code,
+            response.url,
+            response.text[:300]
+        )
+
+        page = response.json()
+
+        if not isinstance(page, dict):
+            raise ValueError(f"NOAA returned an unexpected JSON response: {response.url}")
+
+        if not page or not page.get("results"):
+            if endpoint == "data" and offset == 1:
+                raise NOAANoDataError(
+                    f"NOAA returned no observations for"
+                    f" {params.get('startdate')} to {params.get('enddate')}: {response.url}"
+                )
+
+            raise ValueError(f"Unexpected empty NOAA page at offset {offset}: {response.url}")
+        
+            
 
         results = page.get("results",[])
 
@@ -125,10 +149,14 @@ def extract_noaa(endpoint: str,
     "results": all_results
     }
     
-def extract_noaa_data() -> dict:
+def extract_noaa_data(observation_date: str | None = None) -> dict:
     """
     Extract global GHCND observations.
     """
+
+    if observation_date is None:
+        today = datetime.now(timezone.utc).date()
+        observation_date = (today - timedelta(days=5)).isoformat()
     
     params = {
         "datasetid": "GHCND",
@@ -193,13 +221,12 @@ def extract_noaa_station(station_id: str) -> dict:
         "token":token
     }
 
-    response = requests.get(
+    response = get_with_retry(
         url,
         headers=headers,
         timeout=30
     )
 
-    response.raise_for_status()
 
     return response.json()
 
@@ -228,12 +255,11 @@ def extract_noaa_datatype(
         "token": token
     }
 
-    response = requests.get(
+    response = get_with_retry(
         url,
         headers=headers,
         timeout=30
     )
 
-    response.raise_for_status()
 
     return response.json()
